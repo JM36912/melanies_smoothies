@@ -16,7 +16,7 @@ st.write('The name on your smoothie will be:', name_on_order)
 
 cnx = st.connection("snowflake")
 session = cnx.session()
-my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'))
+my_dataframe = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'), col('SEARCH_ON'))
 #st.dataframe(data=my_dataframe, use_container_width=True)
 #st.stop()
 
@@ -39,7 +39,7 @@ if ingredients_list:
     for fruit_chosen in ingredients_list:
         ingredients_string += f'{fruit_chosen} '
 
-        search_on = pd_df.loc[pd_df['FRUIT_NAME'] == 'Apples', 'SEARCH_ON'].iloc[0]
+        search_on = pd_df.loc[pd_df['FRUIT_NAME'] == fruit_chosen, 'SEARCH_ON'].iloc[0]
         st.write(f'The search value for {fruit_chosen} is {search_on}.')
         
         st.subheader(search_on + ' Nutrition Infromation')
